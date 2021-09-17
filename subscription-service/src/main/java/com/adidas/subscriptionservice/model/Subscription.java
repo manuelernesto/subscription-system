@@ -1,10 +1,12 @@
 package com.adidas.subscriptionservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -28,10 +30,12 @@ public class Subscription implements Serializable {
     private UUID id;
     private String first_name;
     @NotBlank
+    @Email
     private String email;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-//    @NotBlank
+    @NotNull
+    @Temporal(TemporalType.DATE)
     private Date date_of_birth;
     @NotNull
     private boolean consent;

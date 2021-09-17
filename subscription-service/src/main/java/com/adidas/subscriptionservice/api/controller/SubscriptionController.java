@@ -1,8 +1,8 @@
 package com.adidas.subscriptionservice.api.controller;
 
 import com.adidas.subscriptionservice.model.Subscription;
-import com.adidas.subscriptionservice.repository.SubscriptionRepository;
-import com.adidas.subscriptionservice.service.SubscriptionService;
+import com.adidas.subscriptionservice.domain.repository.SubscriptionRepository;
+import com.adidas.subscriptionservice.domain.service.SubscriptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/subscribe")
+@RequestMapping("/v1/subscribers")
 public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
@@ -42,7 +42,6 @@ public class SubscriptionController {
     public UUID createNewSubscription(@Valid @RequestBody Subscription subscription) {
         return subscriptionService.subscribe(subscription);
     }
-
 
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> cancelSubscription(@PathVariable String email) {

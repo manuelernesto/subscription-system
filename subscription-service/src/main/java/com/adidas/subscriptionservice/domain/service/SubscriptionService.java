@@ -1,4 +1,4 @@
-package com.adidas.subscriptionservice.service;
+package com.adidas.subscriptionservice.domain.service;
 
 import com.adidas.subscriptionservice.model.Subscription;
 

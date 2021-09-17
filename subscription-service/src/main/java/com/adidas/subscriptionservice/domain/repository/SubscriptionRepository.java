@@ -1,4 +1,4 @@
-package com.adidas.subscriptionservice.repository;
+package com.adidas.subscriptionservice.domain.repository;
 
 import com.adidas.subscriptionservice.model.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,8 @@
-package com.adidas.subscriptionservice.service;
+package com.adidas.subscriptionservice.domain.service;
 
 import com.adidas.subscriptionservice.domain.exception.DomainException;
 import com.adidas.subscriptionservice.model.Subscription;
-import com.adidas.subscriptionservice.repository.SubscriptionRepository;
+import com.adidas.subscriptionservice.domain.repository.SubscriptionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         var emailExists = subscriptionRepository.findSubscriptionByEmail(subscription.getEmail());
 
         if (emailExists.isPresent()) {
-            throw new DomainException("Email: " + subscription.getEmail() + " is already subscribed.");
+            throw new DomainException("email " + subscription.getEmail() + " is already subscribed.");
         }
 
         return subscriptionRepository.save(subscription).getId();
