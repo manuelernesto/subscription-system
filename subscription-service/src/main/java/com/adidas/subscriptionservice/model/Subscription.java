@@ -1,6 +1,6 @@
 package com.adidas.subscriptionservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,4 +39,7 @@ public class Subscription implements Serializable {
     private Date date_of_birth;
     @NotNull
     private boolean consent;
+    @ManyToOne
+    @JoinColumn(name = "newsletter_id")
+    private Newsletter newsletter;
 }

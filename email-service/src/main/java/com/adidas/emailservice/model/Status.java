@@ -6,4 +6,5 @@ package com.adidas.emailservice.model;
  * @date 15/09/21 21:17
  */
 public enum Status {
+    SENT, ERROR
 }
