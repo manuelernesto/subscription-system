@@ -3,10 +3,9 @@ package com.adidas.publicservice.api;
 import com.adidas.publicservice.model.Subscription;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -27,24 +26,48 @@ public class PublicController {
 
     @PostMapping
     public ResponseEntity<String> newS(@RequestBody Subscription subscription) {
-        return restTemplate.postForEntity( URL, subscription , String.class );
+        var request = getHttpEntity1(subscription);
+        return restTemplate.exchange(URL, HttpMethod.POST, request, String.class);
     }
 
     @GetMapping
     public List<Object> getAll() {
-        ResponseEntity<Object[]> rateResponse = restTemplate.getForEntity(URL, Object[].class);
+        var request = getHttpEntity();
+        ResponseEntity<Object[]> rateResponse = restTemplate.exchange(URL, HttpMethod.GET, request, Object[].class);
         return List.of(rateResponse.getBody());
     }
 
     @GetMapping("/{email}")
     public Object get(@PathVariable String email) {
-        ResponseEntity<Object> rateResponse = restTemplate.getForEntity(URL + "/" + email, Object.class);
+        var request = getHttpEntity();
+        ResponseEntity<Object> rateResponse = restTemplate.exchange(URL + "/" + email, HttpMethod.GET, request, Object.class);
         return rateResponse.getBody();
     }
 
     @DeleteMapping("/{email}")
-    public void del(@PathVariable String email) {
-        restTemplate.delete(URL + "/" + email);
+    public ResponseEntity<Void> del(@PathVariable String email) {
+        try {
+            var request = getHttpEntity();
+            restTemplate.exchange(URL + "/" + email, HttpMethod.DELETE, request, Void.class);
+        } catch (HttpStatusCodeException ex) {
+            if (ex.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
+                return ResponseEntity.notFound().build();
+            }
+        }
+        return ResponseEntity.noContent().build();
     }
+
+    private HttpEntity getHttpEntity() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth("manuel", "manuelernest0");
+        return new HttpEntity(headers);
+    }
+
+    private HttpEntity getHttpEntity1(Subscription subscription) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth("manuel", "manuelernest0");
+        return new HttpEntity(subscription, headers);
+    }
+
 
 }
