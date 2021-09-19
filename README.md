@@ -5,12 +5,12 @@ A system that contains three microservices for use in the subscription applicati
 ### Design Flow
 ![alt text](https://github.com/manuelernesto/subscription-system/blob/main/flow.png)
 
-**Microservice**
+### Microservice
     - Public Service: Backend for Frontend microservices.
     - Subscription Service: microservices that implements subscription logic, includind persistente of data and email notification to confirm process is completed.
     - Email Service: microservice implementing email notifications.
 
-**Tech Stack**
+### Tech Stack
     - Spring Boot
     - Security : Basic Auth Spring Security
     - Netflix Eureka
@@ -19,7 +19,7 @@ A system that contains three microservices for use in the subscription applicati
     - PostgreSQL
     - Kafka
 
-**API Examples**
+### API Examples
     - Public service: http://localhost:8080/adidas/api/swagger-ui.html
     - Email service:  http://localhost:8082/adidas/api/swagger-ui.html
     - Subscription service:  http://localhost:8081/adidas/api/swagger-ui.html
