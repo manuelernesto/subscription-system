@@ -21,12 +21,12 @@ A system that contains three microservices for use in the subscription applicati
     - Java 11
     - Project Lombok
 
-### API Examples
+### API Docs
     - Public service: http://localhost:8080/adidas/api/swagger-ui.html
     - Email service:  http://localhost:8082/adidas/api/swagger-ui.html
     - Subscription service:  http://localhost:8081/adidas/api/swagger-ui.html
     
-### Postman for test the API 
+### Postman - API Examples
     - Download de postman file in the docs folder and import to Postman
 
 ### Installation
