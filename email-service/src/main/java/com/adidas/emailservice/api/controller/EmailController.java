@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/v1/sending-email")
+@RequestMapping("/v1/emails")
 public class EmailController {
 
     private final EmailService emailService;
