@@ -23,12 +23,15 @@ public class SubscriptionControllerTest {
 
     private final String URL = "/v1/subscribers";
 
-    @Test
-    public void getAllSubscriptionsTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(URL))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-    }
+//    @Test
+//    public void getAllSubscriptionsTest() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get(URL))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(MockMvcResultHandlers.print());
+
+
+//    }
+
 
     @Test
     public void getSubscriptionWithEmailTest() {

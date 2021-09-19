@@ -2,6 +2,67 @@ version: '3.2'
 
 services:
 
+  #public service
+  public-service:
+    build:
+      context: ./public-service
+    container_name: public-service
+    depends_on:
+      - eureka-server
+      - subscription-service
+    ports:
+      - 8080:8080
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    links:
+      - eureka-server
+    networks:
+      - subscription-system-network
+
+  #subscription service
+  subscription-service:
+    build:
+      context: ./subscription-service
+    container_name: subscription-service
+    depends_on:
+      - db
+      - eureka-server
+      - kafka
+    ports:
+      - 8081:8081
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dbsubscription
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      KAFKA_HOST: kafka:9092
+    links:
+      - eureka-server
+      - kafka
+    networks:
+      - subscription-system-network
+
+  # email service
+  email-service:
+    build:
+      context: ./email-service
+    container_name: email-service
+    depends_on:
+      - db
+      - eureka-server
+      - kafka
+    ports:
+      - 8082:8082
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dbemail
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      KAFKA_HOST: kafka:9092
+      kafka/172:25:0:5:9092:
+    links:
+      - eureka-server
+      - kafka
+    networks:
+      - subscription-system-network
+
+  # eureka server
   eureka-server:
     build:
       context: ./eureka-server
@@ -11,54 +72,22 @@ services:
     networks:
       - subscription-system-network
 
-#  db-email:
-#    image: postgres:alpine
-#    container_name: db-server-email
-#    ports:
-#      - 5434:5432
-#    networks:
-#      - subscription-system-network
-#    environment:
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_DB: dbemail
-
+  # database server
   db:
     image: postgres:alpine
     container_name: db-server
     ports:
       - 5433:5432
-    networks:
-      - subscription-system-network
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: dbsubscription
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
 
-#  email-service:
-#    build:
-#      context: ./email-service
-#    container_name: email-service
-#    depends_on:
-#      - db-email
-#      - eureka-server
-#      - kafka
-#    ports:
-#      - 8082:8082
-#    networks:
-#      - subscription-system-network
+    networks:
+      - subscription-system-network
 
-#  subscription-service:
-#    build:
-#      context: ./subscription-service
-#    container_name: subscription-service
-#    depends_on:
-#      - db
-#      - eureka-server
-#      - kafka
-#    ports:
-#      - 8081:8081
-#    networks:
-#      - subscription-system-network
-
+  # zookeeper
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
@@ -67,7 +96,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - subscription-system-network
 
+  # kafka
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka
@@ -78,10 +110,12 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - subscription-system-network
 
 
 networks:

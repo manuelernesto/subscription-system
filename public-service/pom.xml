@@ -10,6 +10,7 @@
     </parent>
     <groupId>com.adidas</groupId>
     <artifactId>public-service</artifactId>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>public-service</name>
     <description>public-service</description>
