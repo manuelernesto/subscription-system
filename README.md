@@ -28,7 +28,7 @@ A system that contains three microservices for use in the subscription applicati
     - BONUS: download de postman file in the docs folder
 
 ### Installation
-This application is built using maven
+This application is built using maven (make sure the database is up)
 ```sh
 $ cd email-service
 $ mvn spring-boot:run
