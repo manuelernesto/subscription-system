@@ -25,10 +25,12 @@ A system that contains three microservices for use in the subscription applicati
     - Public service: http://localhost:8080/adidas/api/swagger-ui.html
     - Email service:  http://localhost:8082/adidas/api/swagger-ui.html
     - Subscription service:  http://localhost:8081/adidas/api/swagger-ui.html
-    - BONUS: download de postman file in the docs folder
+    
+### Postman for test the API 
+    - Download de postman file in the docs folder and import to Postman
 
 ### Installation
-This application is built using maven (make sure the database is up)
+This application is built using maven (make sure the database and eureka-server is up)
 ```sh
 $ cd email-service
 $ mvn spring-boot:run
