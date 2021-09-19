@@ -18,12 +18,14 @@ A system that contains three microservices for use in the subscription applicati
     - Docker
     - PostgreSQL
     - Kafka
+    - Java 11
+    - Project Lombok
 
 ### API Examples
     - Public service: http://localhost:8080/adidas/api/swagger-ui.html
     - Email service:  http://localhost:8082/adidas/api/swagger-ui.html
     - Subscription service:  http://localhost:8081/adidas/api/swagger-ui.html
-    -BONUS: download de postman file in the docs folder
+    - BONUS: download de postman file in the docs folder
 
 ### Installation
 This application is built using maven
