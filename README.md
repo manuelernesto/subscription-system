@@ -2,6 +2,9 @@
 
 A system that contains three microservices for use in the subscription applications.
 
+### Design Flow
+![alt text](https://github.com/manuelernesto/subscription-system/blob/main/flow.png)
+
 **Microservice**
     - Public Service: Backend for Frontend microservices.
     - Subscription Service: microservices that implements subscription logic, includind persistente of data and email notification to confirm process is completed.
