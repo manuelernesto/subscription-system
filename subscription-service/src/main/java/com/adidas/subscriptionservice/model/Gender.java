@@ -7,5 +7,5 @@ package com.adidas.subscriptionservice.model;
  */
 
 public enum Gender {
-    MALE, FEMALE, OTHER
+    MALE, FEMALE
 }

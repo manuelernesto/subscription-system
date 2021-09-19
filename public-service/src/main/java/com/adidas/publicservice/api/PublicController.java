@@ -21,12 +21,14 @@ import java.util.List;
 @RequestMapping("/v1/public")
 public class PublicController {
 
+    private static final String USERNAME = "manuel";
+    private static final String PASSWORD = "manuelernest0";
     private final RestTemplate restTemplate;
     private final String URL = "http://subscription-service/adidas/api/v1/subscribers";
 
     @PostMapping
     public ResponseEntity<String> newS(@RequestBody Subscription subscription) {
-        var request = getHttpEntity1(subscription);
+        var request = getHttpEntity(subscription);
         return restTemplate.exchange(URL, HttpMethod.POST, request, String.class);
     }
 
@@ -38,10 +40,18 @@ public class PublicController {
     }
 
     @GetMapping("/{email}")
-    public Object get(@PathVariable String email) {
-        var request = getHttpEntity();
-        ResponseEntity<Object> rateResponse = restTemplate.exchange(URL + "/" + email, HttpMethod.GET, request, Object.class);
-        return rateResponse.getBody();
+    public ResponseEntity<Object> get(@PathVariable String email) {
+        try {
+            var request = getHttpEntity();
+            ResponseEntity<Object> rateResponse = restTemplate.exchange(URL + "/" + email, HttpMethod.GET, request, Object.class);
+            return ResponseEntity.ok(rateResponse.getBody());
+        } catch (HttpStatusCodeException ex) {
+            if (ex.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+        return null;
     }
 
     @DeleteMapping("/{email}")
@@ -57,17 +67,18 @@ public class PublicController {
         return ResponseEntity.noContent().build();
     }
 
+
     private HttpEntity getHttpEntity() {
+
         HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth("manuel", "manuelernest0");
+        headers.setBasicAuth(USERNAME, PASSWORD);
         return new HttpEntity(headers);
     }
 
-    private HttpEntity getHttpEntity1(Subscription subscription) {
+    private HttpEntity getHttpEntity(Subscription subscription) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth("manuel", "manuelernest0");
+        headers.setBasicAuth(USERNAME, PASSWORD);
         return new HttpEntity(subscription, headers);
     }
-
 
 }

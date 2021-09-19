@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "62da5411-56e8-4b3c-ade0-401f70f8bde8",
+		"name": "subscription-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "subscription-service",
+			"item": [
+				{
+					"name": "Get all subscriptions",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/adidas/api/v1/subscribers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"subscribers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get subscription",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/adidas/api/v1/subscribers/manuel@email.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"subscribers",
+								"manuel@email.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel subscription",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/adidas/api/v1/subscribers/manuel@email.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"subscribers",
+								"manuel@email.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new subscription",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Manuel\",\n    \"email\": \"manuel@email.com\",\n    \"gender\": \"MALE\",\n    \"date_of_birth\": \"2021-09-17\",\n    \"consent\": true,\n    \"newsletter_id\":\"36d05deb-aca9-4b94-9c2c-76fd4a6f4530\"  \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/adidas/api/v1/subscribers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"subscribers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "email-service",
+			"item": [
+				{
+					"name": "Get all emails",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/adidas/api/v1/emails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"emails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all emails by status",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/adidas/api/v1/emails/sent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"emails",
+								"sent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send new emai",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Ernesto\",\n    \"email\": \"ernesto@email.com\",\n    \"gender\": \"MALE\",\n    \"date_of_birth\": \"2021-09-17\",\n    \"consent\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/adidas/api/v1/emails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"emails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "public-service",
+			"item": [
+				{
+					"name": "Get all subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/adidas/api/v1/public",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get subscription",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/adidas/api/v1/public/manuel@email.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"public",
+								"manuel@email.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel subscription",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/adidas/api/v1/public/manuel@email.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"public",
+								"manuel@email.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new subscription",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Adidas\",\n    \"email\": \"manuel@adidas.es.pt.ao\",\n    \"gender\": \"MALE\",\n    \"date_of_birth\": \"2021-09-17\",\n    \"consent\": true,\n    \"newsletter_id\":\"36d05deb-aca9-4b94-9c2c-76fd4a6f4530\"  \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/adidas/api/v1/public",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"adidas",
+								"api",
+								"v1",
+								"public"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": "manuel"
+		},
+		{
+			"key": "password",
+			"value": "manuelernest0"
+		}
+	]
+}
