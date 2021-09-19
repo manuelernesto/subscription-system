@@ -1,4 +1,4 @@
-package com.adidas.subscriptionservice;
+package com.adidas.subscriptionservice.model.dto;
 
 import com.adidas.subscriptionservice.model.Gender;
 import lombok.Data;
@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author Manuel Ernesto (manuelernest0)
@@ -19,7 +20,6 @@ import java.util.Date;
  */
 @Data
 public class SubscriptionDTO {
-
     private String first_name;
     @NotBlank
     @Email
@@ -32,5 +32,5 @@ public class SubscriptionDTO {
     @NotNull
     private boolean consent;
     @NotNull
-    private Long newsletter_id;
+    private UUID newsletter_id;
 }

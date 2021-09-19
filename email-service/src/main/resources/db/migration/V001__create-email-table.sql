@@ -1,4 +1,4 @@
-create table email
+create table if not exists email
 (
     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
     email_to  varchar(100) not null,

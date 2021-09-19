@@ -20,22 +20,26 @@ import java.util.UUID;
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
 
+    private final String KAFKA_TOPIC = "subscription-system-subscribe-successful";
+
     private final SubscriptionRepository subscriptionRepository;
     private final KafkaTemplate<String, Subscription> kafkaTemplate;
 
-    private final String KAFKA_TOPIC = "subscription-system-subscribe-successful";
 
     @Override
     public UUID subscribe(Subscription subscription) {
         var emailExists = subscriptionRepository.findSubscriptionByEmail(subscription.getEmail());
 
         if (emailExists.isPresent()) {
-            throw new DomainException("email " + subscription.getEmail() + " is already subscribed.");
+            throw new DomainException(String.format("email %s is already subscribed!", subscription.getEmail()));
         }
 
         UUID id = subscriptionRepository.save(subscription).getId();
-        log.info("User subscribed: " + id);
-        subscribToKafka(subscription);
+
+        log.info(String.format("User with id: %s was successfully subscribed!", id));
+
+        sendRequestToKafka(subscription);
+
         return id;
     }
 
@@ -43,11 +47,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void unSubscribe(String email) {
         var subscription = subscriptionRepository.findSubscriptionByEmail(email);
         subscriptionRepository.delete(subscription.get());
-        log.info("Email unSubscribed: " + email);
+        log.info(String.format("email %s  unSubscribed!", email));
     }
 
-    private void subscribToKafka(Subscription subscription) {
+    private void sendRequestToKafka(Subscription subscription) {
         kafkaTemplate.send(KAFKA_TOPIC, subscription);
-        log.info("Sent request to Kafka with data:" + subscription.toString());
+        log.info(String.format("Sent request to Kafka with data %s", subscription.toString()));
     }
 }

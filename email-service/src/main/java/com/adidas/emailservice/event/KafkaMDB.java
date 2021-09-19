@@ -1,6 +1,6 @@
 package com.adidas.emailservice.event;
 
-import com.adidas.emailservice.dto.EmailDTO;
+import com.adidas.emailservice.model.Subscription;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -22,15 +22,16 @@ import java.util.Map;
 @EnableKafka
 @Configuration
 public class KafkaMDB {
+
     @Bean
-    public ConsumerFactory<String, EmailDTO> consumerFactory() {
+    public ConsumerFactory<String, Subscription> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
-        JsonDeserializer<EmailDTO> deserializer = new JsonDeserializer<>(EmailDTO.class);
+        JsonDeserializer<Subscription> deserializer = new JsonDeserializer<>(Subscription.class);
         deserializer.setRemoveTypeHeaders(false);
         deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(true);
@@ -40,8 +41,8 @@ public class KafkaMDB {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, EmailDTO> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, EmailDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, Subscription> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Subscription> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }

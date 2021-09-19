@@ -1,7 +1,7 @@
 package com.adidas.emailservice.event;
 
 import com.adidas.emailservice.domain.service.EmailService;
-import com.adidas.emailservice.dto.EmailDTO;
+import com.adidas.emailservice.model.Subscription;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,8 +21,8 @@ public class KafkaConsumer {
     private final EmailService emailService;
 
     @KafkaListener(topics = KAFKA_TOPIC, groupId = KAFKA_GROUP_ID)
-    public void consumer(EmailDTO emailDTO) {
-        log.info("Consuming from Kafka");
-        emailService.sendEmail(emailDTO);
+    public void consumer(Subscription subscription) {
+        log.info("Consuming information from Kafka");
+        emailService.sendEmail(subscription);
     }
 }
